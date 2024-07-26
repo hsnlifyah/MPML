@@ -1,58 +1,42 @@
 import pickle
 import streamlit as st
-import pandas as pd
-import joblib
-from sklearn.preprocessing import StandardScaler
+import numpy as np
 
 # Membaca model
-food_model = joblib.load('grid_search.pkl')
+online_model = pickle.load(open('OnlineFoods.sav','rb'))
 
-# Input form for user
-st.title('Prediksi Output untuk Online Foods')
+# Judul web
+st.title('Prediksi Output Online Food')
 
-# Input features
-gender = st.selectbox('Gender', ['Male', 'Female'])
-marital_status = st.selectbox('Marital Status', ['Single', 'Married', 'Prefer not to say'])
-occupation = st.selectbox('Occupation', ['Employee', 'House wife', 'Self Employeed', 'Student'])
-monthly_income = st.selectbox('Monthly Income', ['Below Rs.10000', '10001 to 25000', '25001 to 50000', 'More than 50000', 'No Income'])
-educational_qualifications = st.selectbox('Educational Qualifications', ['School', 'Graduate', 'Post Graduate', 'Ph.D', 'Uneducated'])
-feedback = st.selectbox('Feedback', ['Positive', 'Negative'])
-age = st.number_input('Age', min_value=0)
-family_size = st.number_input('Family Size', min_value=0)
-latitude = st.number_input('Latitude')
-longitude = st.number_input('Longitude')
+# Input data dengan contoh angka valid untuk pengujian
+Marital_Status = st.text_input('Marital_Status')
+Occupation = st.text_input('Occupation')
+Monthly_Income = st.text_input('Monthly_Income')
+Educational_Qualifications = st.text_input('Educational_Qualifications')
+Feedback = st.text_input('Feedback')
+Age = st.text_input('Age')
+Family_size = st.text_input('Family_size')
+latitude= st.text_input('latitude')
+longitude=st.text_input('longitude')
 
-# Create DataFrame from inputs
-user_input = pd.DataFrame({
-    'Gender': [gender],
-    'Marital Status': [marital_status],
-    'Occupation': [occupation],
-    'Monthly Income': [monthly_income],
-    'Educational Qualifications': [educational_qualifications],
-    'Feedback': [feedback],
-    'Age': [age],
-    'Family size': [family_size],
-    'latitude': [latitude],
-    'longitude': [longitude]
-})
+prediksi_Onlinefood = ''
 
-# Assuming preprocessor and model are defined elsewhere in your code
-preprocessor = StandardScaler()  # Example only; replace with your actual preprocessor
-model = Anaemic_model  # Use the loaded model
-
-# Button to make prediction
-if st.button('Predict'):
+# Membuat tombol untuk prediksi
+if st.button('Prediksi'):
     try:
-        # Apply preprocessing
-        user_input_processed = preprocessor.transform(user_input)
-        # Make prediction
-        prediction = model.predict(user_input_processed)
-        prediction_proba = model.predict_proba(user_input_processed)
-        # Display prediction
-        st.write('### Hasil Prediksi')
-        st.write(f'Output Prediksi: {prediction[0]}')
-        st.write(f'Probabilitas Prediksi: {prediction_proba[0]}')
-    except ValueError as e:
-        st.error(f"Error during preprocessing: {e}")
+        # Konversi input menjadi numerik
+        inputs = np.array([[float(Marital_Status), float(Occupation), float(Monthly_Income), float(Educational_Qualificatuons),
+                  float(Feedback), float(Age), float(Family_size), float(laitude), float(longitude)]])
+        # Lakukan prediksi
+        online_prediksi = online_model.predict(inputs)
+        
+        if online_prediksi[0] == 1:
+            prediksi_online = 'Yes'
+            st.success(prediksi_online)
+        else:
+            prediksi_online = '<span style="color:red">No/span>'
+            st.markdown(prediksi_online, unsafe_allow_html=True)
+    except ValueError:
+        st.error("Pastikan semua input diisi dengan angka yang valid.")
     except Exception as e:
         st.error(f"Terjadi kesalahan: {e}")
