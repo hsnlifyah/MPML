@@ -1,3 +1,14 @@
+import subprocess
+import sys
+
+# Function to install joblib
+def install_joblib():
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "joblib"])
+
+# Call the function to install joblib
+install_joblib()
+
+# Import statements
 import streamlit as st
 import pandas as pd
 import joblib
@@ -38,7 +49,7 @@ user_input = pd.DataFrame({
 # Button to make prediction
 if st.button('Predict'):
     try:
-# Apply preprocessing
+        # Apply preprocessing
         user_input_processed = preprocessor.transform(user_input)
         # Make prediction
         prediction = model.predict(user_input_processed)
