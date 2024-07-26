@@ -1,6 +1,5 @@
-streamlit==1.37.0
-Pandas==2.2.1
-Numpy==1.26.4
-matplotlib==3.8.4
+streamlit==1.36.0
+pandas==2.2.2
+joblib==1.4.2
+numpy==1.24.2
 scikit-learn==1.2.2
-pip==23.3.1
