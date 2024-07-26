@@ -1,10 +1,10 @@
-import pickle
 import streamlit as st
-import numpy as np
 import pandas as pd
+import joblib
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Membaca model
-Anaemic_model = pickle.load(open('OnlineFoods.sav', 'rb'))
+Anaemic_model = joblib.load('OnlineFoods.sav')
 
 # Input form for user
 st.title('Prediksi Output untuk Online Foods')
