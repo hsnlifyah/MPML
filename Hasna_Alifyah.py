@@ -1,7 +1,7 @@
 import pickle
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+
 
 # Membaca model
 food_model = pickle.load(open('OnlineFoods.sav','rb'))
