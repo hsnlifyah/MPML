@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 
 # Membaca model
-food_model = joblib.load('OnlineFoods.pkl')
+food_model = joblib.load('grid_search.pkl')
 
 # Input form for user
 st.title('Prediksi Output untuk Online Foods')
