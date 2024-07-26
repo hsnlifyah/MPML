@@ -4,7 +4,7 @@ import pandas as pd
 
 
 # Membaca model
-food_model = pickle.load(open('OnlineFoods.sav','rb'))
+food_model = pickle.load(open('OnlineFoods.pkl'))
 
 # Input form for user
 st.title('Prediksi Output untuk Online Foods')
