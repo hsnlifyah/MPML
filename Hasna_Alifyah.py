@@ -1,10 +1,10 @@
 import pickle
 import streamlit as st
 import pandas as pd
-
+import joblib
 
 # Membaca model
-food_model = pickle.load(open('OnlineFoods.pkl'))
+food_model = joblib.load('OnlineFoods.pkl')
 
 # Input form for user
 st.title('Prediksi Output untuk Online Foods')
