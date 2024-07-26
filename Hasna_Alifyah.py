@@ -1,13 +1,3 @@
-import subprocess
-import sys
-
-# Function to install joblib
-def install_joblib():
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "joblib"])
-
-# Call the function to install joblib
-install_joblib()
-
 import streamlit as st
 import pandas as pd
 import joblib
